@@ -24,4 +24,25 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/run-migrations', function (Illuminate\Http\Request $request) {
+    if ($request->query('key') !== 'migrate-123') {
+        abort(403, 'Unauthorized action.');
+    }
+
+    try {
+        \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
+        $output = \Illuminate\Support\Facades\Artisan::output();
+        
+        \Illuminate\Support\Facades\Artisan::call('storage:link');
+        $output .= "\n" . \Illuminate\Support\Facades\Artisan::output();
+        
+        \Illuminate\Support\Facades\Artisan::call('optimize:clear');
+        $output .= "\n" . \Illuminate\Support\Facades\Artisan::output();
+        
+        return response("<pre>Database updated successfully!\n\n" . $output . "</pre>");
+    } catch (\Exception $e) {
+        return response("<pre>Error: " . $e->getMessage() . "</pre>");
+    }
+});
+
 require __DIR__.'/auth.php';
