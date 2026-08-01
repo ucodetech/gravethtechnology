@@ -72,4 +72,50 @@
             </div>
         </div>
     </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Featured Projects</h2>
+                <div class="w-24 h-1 bg-indigo-600 mx-auto rounded-full"></div>
+                <p class="mt-4 text-gray-600">A selection of my recent work</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                @forelse($projects as $project)
+                    <div class="group relative bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100">
+                        <div class="relative h-64 overflow-hidden bg-gray-100">
+                            @if($project->image)
+                                <img src="{{ $project->image }}" alt="{{ $project->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            @else
+                                <div class="w-full h-full flex items-center justify-center text-gray-400">
+                                    <i class="fas fa-image text-5xl"></i>
+                                </div>
+                            @endif
+                            <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent opacity-80"></div>
+                            
+                            <div class="absolute bottom-0 left-0 p-6 w-full">
+                                <h3 class="text-xl font-bold text-white mb-2">{{ $project->title }}</h3>
+                                @if($project->link)
+                                    <a href="{{ $project->link }}" target="_blank" class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white text-indigo-600 hover:bg-indigo-600 hover:text-white transition-colors absolute bottom-6 right-6 shadow-lg">
+                                        <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                @endif
+                            </div>
+                        </div>
+                        @if($project->description)
+                            <div class="p-6">
+                                <p class="text-gray-600 leading-relaxed">{{ $project->description }}</p>
+                            </div>
+                        @endif
+                    </div>
+                @empty
+                    <div class="col-span-3 text-center text-gray-500 py-12 bg-gray-50 rounded-2xl border border-gray-100">
+                        No projects showcased yet. Check back soon!
+                    </div>
+                @endforelse
+            </div>
+        </div>
+    </section>
 @endsection

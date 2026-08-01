@@ -12,7 +12,8 @@ class HomeController extends Controller
     {
         $settings = Setting::pluck('value', 'key')->toArray();
         $services = Service::where('is_active', true)->get();
+        $projects = \App\Models\Project::where('is_active', true)->latest()->get();
         
-        return view('index', compact('settings', 'services'));
+        return view('index', compact('settings', 'services', 'projects'));
     }
 }

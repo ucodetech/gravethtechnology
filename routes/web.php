@@ -17,6 +17,7 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::post('/settings', [SettingController::class, 'update'])->name('settings.update');
     
     Route::resource('services', ServiceController::class)->except(['create', 'show']);
+    Route::resource('projects', App\Http\Controllers\Admin\ProjectController::class)->except(['create', 'show']);
 });
 
 Route::middleware('auth')->group(function () {

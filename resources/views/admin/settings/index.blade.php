@@ -76,7 +76,7 @@
             btn.innerHTML = 'Saving...';
             btn.disabled = true;
             
-            fetch("{{ route('admin.settings.update') }}", {
+            fetch('/admin/settings', {
                 method: 'POST',
                 body: formData,
                 headers: {

@@ -18,8 +18,8 @@
                     @forelse($services as $service)
                         <div class="border rounded-lg p-4 shadow-sm relative group" id="service-{{ $service->id }}">
                             <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition">
-                                <button onclick="editService({{ $service->id }})" class="text-blue-500 hover:text-blue-700 mr-2"><i class="fas fa-edit"></i> Edit</button>
-                                <button onclick="deleteService({{ $service->id }})" class="text-red-500 hover:text-red-700"><i class="fas fa-trash"></i> Delete</button>
+                                <button onclick="editService('{{ $service->id }}')" class="text-blue-500 hover:text-blue-700 mr-2"><i class="fas fa-edit"></i> Edit</button>
+                                <button onclick="deleteService('{{ $service->id }}')" class="text-red-500 hover:text-red-700"><i class="fas fa-trash"></i> Delete</button>
                             </div>
                             <div class="text-3xl text-indigo-500 mb-3">
                                 {!! $service->icon !!}
@@ -85,7 +85,7 @@
         }
 
         function editService(id) {
-            fetch(`/admin/services/${id}/edit`)
+            fetch('/admin/services/' + id + '/edit')
                 .then(res => res.json())
                 .then(data => {
                     document.getElementById('service_id').value = data.id;
@@ -109,10 +109,10 @@
                 confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    fetch(`/admin/services/${id}`, {
+                    fetch('/admin/services/' + id, {
                         method: 'DELETE',
                         headers: {
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
                             'X-Requested-With': 'XMLHttpRequest'
                         }
                     })
@@ -130,12 +130,13 @@
             e.preventDefault();
             let formData = new FormData(this);
             let id = document.getElementById('service_id').value;
-            let url = id ? `/admin/services/${id}` : `{{ route('admin.services.store') }}`;
+            let url = id ? '/admin/services/' + id : '/admin/services';
             
             fetch(url, {
                 method: 'POST',
                 body: formData,
                 headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
                     'X-Requested-With': 'XMLHttpRequest'
                 }
             })
