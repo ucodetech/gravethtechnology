@@ -5,10 +5,8 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
+    <div class="bg-white shadow-sm sm:rounded-2xl border border-gray-100">
+        <div class="p-6 lg:p-8 text-gray-900">
                     <form id="settingsForm" enctype="multipart/form-data">
                         @csrf
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -61,7 +59,6 @@
                         </div>
                     </form>
                 </div>
-            </div>
         </div>
     </div>
 
