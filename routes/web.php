@@ -33,6 +33,11 @@ Route::get('/run-migrations', function (Illuminate\Http\Request $request) {
         \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
         $output = \Illuminate\Support\Facades\Artisan::output();
         
+        if ($request->query('seed') === 'true') {
+            \Illuminate\Support\Facades\Artisan::call('db:seed', ['--force' => true]);
+            $output .= "\n" . \Illuminate\Support\Facades\Artisan::output();
+        }
+        
         return response("<pre>Database updated successfully!\n\n" . $output . "</pre>");
     } catch (\Exception $e) {
         return response("<pre>Error: " . $e->getMessage() . "</pre>");
