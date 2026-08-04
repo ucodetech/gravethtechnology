@@ -79,6 +79,24 @@
                         </div>
                         @endif
                     </div>
+                    
+                    <div class="flex space-x-4 mt-8">
+                        @if(!empty($settings['github_url']))
+                            <a href="{{ $settings['github_url'] }}" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-gray-400 hover:text-white hover:bg-gray-700 transition">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        @endif
+                        @if(!empty($settings['linkedin_url']))
+                            <a href="{{ $settings['linkedin_url'] }}" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-gray-400 hover:text-white hover:bg-gray-700 transition">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                        @endif
+                        @if(!empty($settings['twitter_url']))
+                            <a href="{{ $settings['twitter_url'] }}" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-gray-400 hover:text-white hover:bg-gray-700 transition">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        @endif
+                    </div>
                 </div>
                 
                 <div>
